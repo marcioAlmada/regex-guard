@@ -13,5 +13,8 @@
         "psr-4": {
             "RegexGuard\\": "src/"
         }
+    },
+    "require-dev": {
+        "mockery/mockery": "dev-master"
     }
 }

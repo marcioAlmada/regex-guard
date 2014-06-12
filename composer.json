@@ -1,0 +1,17 @@
+{
+    "name": "regex-guard/regex-guard",
+    "description": "RegexGuard is a wrapper that keeps your APIs away from malformed regex elements and uncatchable PCRE warnings",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Márcio Almada",
+            "email": "marcio3w@gmail.com",
+            "homepage": "https://github.com/marcioAlmada/"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "RegexGuard\\": "src/"
+        }
+    }
+}

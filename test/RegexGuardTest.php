@@ -12,7 +12,7 @@ class RegexGuardTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->guard = new RegexGuard(new Sandbox(new ErrorHandler));;
+        $this->guard = Factory::getGuard();
     }
 
     public function testRegexValidation(){

@@ -1,6 +1,6 @@
 {
     "name": "regex-guard/regex-guard",
-    "description": "RegexGuard is a wrapper that keeps your code away from malformed regex and PCRE warnings",
+    "description": "A wrapper that keeps your API away from malformed regular expressions",
     "license": "MIT",
     "authors": [
         {

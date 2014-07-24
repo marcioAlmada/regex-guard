@@ -29,9 +29,9 @@ class SandboxTest extends \PHPUnit_Framework_TestCase
                       ->shouldReceive('enable')->times(1)
                       ->shouldReceive('disable')->times(1)
                       ->getMock();
-        
+
         $this->sandbox = new Sandbox($handler);
-        $this->sandbox->run(function(){});
+        $this->sandbox->run(function () {});
     }
 
     /**
@@ -41,7 +41,7 @@ class SandboxTest extends \PHPUnit_Framework_TestCase
     {
         $spy = M::mock('\stdClass')->shouldReceive('checkpoint')->times(3)->getMock();
         $this->assertFalse($this->sandbox->run($closure, $args, false));
-        
+
         try {
             $spy->checkpoint();
             $this->sandbox->run($closure, $args);
@@ -62,22 +62,22 @@ class SandboxTest extends \PHPUnit_Framework_TestCase
     {
         $spy = M::mock('\stdClass')->shouldReceive('checkpoint')->times(2)->with('signal')->getMock();
 
-        set_error_handler(function($errno, $errstr) use ($spy) {
+        set_error_handler(function ($errno, $errstr) use ($spy) {
             $spy->checkpoint($errstr);
         }, E_USER_WARNING);
-        
+
         trigger_error('signal', E_USER_WARNING);
-        
+
         $this->sandbox = new Sandbox(new ErrorHandler());
         $this->assertFalse($this->sandbox->run($closure, $args, false));
-        
+
         trigger_error('signal', E_USER_WARNING);
     }
 
     public function badSandboxCallProvider()
     {
         return [
-            [function(){ return preg_match('#', ''); }],
+            [function () { return preg_match('#', ''); }],
             ['preg_match', ['#', '']],
         ];
     }

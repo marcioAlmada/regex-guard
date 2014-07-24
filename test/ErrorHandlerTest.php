@@ -4,7 +4,7 @@ namespace RegexGuard;
 
 /**
  * ErrorHandlerTest
- * 
+ *
  */
 class ErrorHandlerTest extends \PHPUnit_Framework_TestCase
 {

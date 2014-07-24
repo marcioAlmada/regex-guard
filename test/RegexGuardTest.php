@@ -4,7 +4,7 @@ namespace RegexGuard;
 
 /**
  * RegexGuardTest
- * 
+ *
  */
 class RegexGuardTest extends \PHPUnit_Framework_TestCase
 {
@@ -15,10 +15,11 @@ class RegexGuardTest extends \PHPUnit_Framework_TestCase
         $this->guard = Factory::getGuard();
     }
 
-    public function testRegexValidation(){
+    public function testRegexValidation()
+    {
         $this->assertTrue ($this->guard->isRegexValid('#\(#'));
         $this->assertFalse($this->guard->isRegexValid('#(#'));
-        
+
         $this->assertTrue($this->guard->isRegexValid('#(\[)#'));
         $this->assertFalse($this->guard->isRegexValid('#([)#'));
 
@@ -38,19 +39,19 @@ class RegexGuardTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, $this->guard->match($pattern, '@10123456789'));
 
         $this->assertEquals(1, $this->guard->match($pattern, 'regexguard'));
-        
+
         $this->guard->match($pattern, 'regexguard', $match);
         $this->assertEquals(['r'], $match);
-        
+
         $this->guard->match($pattern, 'regexguard', $match, PREG_OFFSET_CAPTURE);
         $this->assertEquals([['r', 0]], $match);
-        
+
         $this->guard->match($pattern, 'regexguard', $match, PREG_OFFSET_CAPTURE, 1);
         $this->assertEquals([['e', 1]], $match);
 
         $this->guard->match($pattern, 'regexguard', $match, PREG_OFFSET_CAPTURE, 4);
         $this->assertEquals([['x', 4]], $match);
-        
+
         $this->guard->match($pattern, 'regexguard', $match, PREG_OFFSET_CAPTURE, 9);
         $this->assertEquals([['d', 9]], $match);
     }
@@ -68,7 +69,7 @@ class RegexGuardTest extends \PHPUnit_Framework_TestCase
     {
         $pattern = '#\d|([a-z])#';
         $this->assertSame(preg_match_all($pattern, 'a1b2c3d4e5'), $this->guard->matchAll($pattern, 'a1b2c3d4e5'));
-        
+
         preg_match_all($pattern, 'a1b2c3d4e5', $x);
         $this->guard->matchAll($pattern, 'a1b2c3d4e5', $y);
         $this->assertSame($x, $y);
@@ -88,7 +89,6 @@ class RegexGuardTest extends \PHPUnit_Framework_TestCase
         $this->expectRegexException($message);
         $this->guard->matchAll($pattern, '');
     }
-
 
     public function testGrep()
     {
@@ -140,7 +140,6 @@ class RegexGuardTest extends \PHPUnit_Framework_TestCase
         $this->guard->replace($pattern, '', '');
     }
 
-
     public function testSplit()
     {
         $pattern = '#\w#';
@@ -175,19 +174,19 @@ class RegexGuardTest extends \PHPUnit_Framework_TestCase
     {
         $this->skipHHVM();
 
-        $subject = array('1', 'a', '2', 'b', '3', 'A', 'B', '4'); 
-        $pattern = array('/\d/', '/[a-z]/', '/[1a]/'); 
-        $replace = array('A:$0', 'B:$0', 'C:$0'); 
+        $subject = ['1', 'a', '2', 'b', '3', 'A', 'B', '4'];
+        $pattern = ['/\d/', '/[a-z]/', '/[1a]/'];
+        $replace = ['A:$0', 'B:$0', 'C:$0'];
 
         $this->assertEquals(
             preg_filter($pattern, $replace, $subject),
             $this->guard->filter($pattern, $replace, $subject)
-        ); 
+        );
 
         $this->assertEquals(
             preg_filter($pattern, $replace, $subject),
             $this->guard->filter($pattern, $replace, $subject)
-        ); 
+        );
     }
 
     /**
@@ -240,7 +239,6 @@ class RegexGuardTest extends \PHPUnit_Framework_TestCase
             ['#(\w)(?2)#', 'Compilation failed: reference to non-existent subpattern at offset 7'],
         ];
     }
-
 
     protected function expectRegexException($message)
     {

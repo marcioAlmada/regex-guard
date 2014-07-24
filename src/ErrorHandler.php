@@ -12,9 +12,11 @@ class ErrorHandler implements ErrorHandlerInterface
     {
         if (! $this->enabled) {
             $this->enabled = true;
+
             return set_error_handler(function ($errno, $errstr) use ($severity, $throwOnError) {
                 $this->disable();
                 if($throwOnError) throw new RegexException(str_replace('preg_', '', $errstr));
+
                 return true;
             }, $severity);
         }
@@ -26,6 +28,7 @@ class ErrorHandler implements ErrorHandlerInterface
     {
         if ($this->enabled) {
             $this->enabled = false;
+
             return restore_error_handler(); // cleans temporary error handler
         }
 

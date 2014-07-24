@@ -19,6 +19,7 @@ class Sandbox implements SandboxInterface
         $this->errorHandler->enable($throwOnError, $severity);
         $result = call_user_func_array($closure, $args);
         $this->errorHandler->disable();
+
         return $result;
     }
 }

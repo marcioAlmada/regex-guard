@@ -19,3 +19,11 @@ RegexGuard
 [v-badge]: https://poser.pugx.org/regex-guard/regex-guard/v/stable.png
 [d-badge]: https://poser.pugx.org/regex-guard/regex-guard/downloads.png
 [l-badge]: https://poser.pugx.org/regex-guard/regex-guard/license.png
+
+> That's awkward but php doesn't offer any good way to validate a regular expression. There is no core function like `preg_validate_reger`, some core functions may return false on PCRE compilation errors but they also emit uncatchable warnings.
+
+RegexGuard is a wrapper that keeps your API away from malformed regular expressions and uncatchable PCRE compilation warnings. Quick example:
+
+## Copyright
+
+Copyright (c) 2014 Márcio Almada. Distributed under the terms of an MIT-style license. See LICENSE for details.

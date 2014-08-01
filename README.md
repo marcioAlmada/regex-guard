@@ -24,6 +24,47 @@ RegexGuard
 
 RegexGuard is a wrapper that keeps your API away from malformed regular expressions and uncatchable PCRE compilation warnings. Quick example:
 
+```php
+
+class MyFooClass
+{
+    /**
+     * Apply filter using a regular expression
+     *
+     * @param  string $regexp Must be a valid regexp (PCRE) string
+     */
+    public function filter($regexp)
+    {
+        $guard = \RegexGuard\Factory::getGuard(); // grab guard instance
+
+        if($guard->isRegexValid($regexp)) {
+            // regexp is a valid regular expression, proceed :)
+        } else {
+            // handle the invalid argument!
+        }
+    }
+}
+
+```
+
+## Features
+
+- No need for `@preg_match`, `@preg_match_all`... 
+- No need to use regexp to validate a given regexp or any other crappy solution
+- Aims to be 100% compatible with PHP `preg_*` core functions
+- Faster and more reliable than `@` + `preg_*` calls
+- Compatible with xdebug.scream
+
+## Contribution Guide
+ 
+0. Fork [regex-guard](https://github.com/marcioAlmada/regex-guard/fork)
+0. Clone forked repository
+0. Install composer dependencies `$ composer install`
+0. Run unit tests `$ phpunit`
+0. Modify code: correct bug, implement feature
+0. Back to step 4
+0. Pull request to master branch
+
 ## Copyright
 
 Copyright (c) 2014 Márcio Almada. Distributed under the terms of an MIT-style license. See LICENSE for details.

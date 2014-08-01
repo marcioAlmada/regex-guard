@@ -47,6 +47,101 @@ class MyFooClass
 
 ```
 
+## API
+
+### RegexGuard::isRegexValid(\$pattern);
+
+Validates a given perl compatible regular expression. Returns true when PCRE string is valid, false otherwise:
+
+```php
+$guard = \RegexGuard\Factory::getGuard();
+
+$guard->isRegexValid('/\w{0,1}/');  // true, regex is valid
+$guard->isRegexValid('/\w{1,0}/');  // false, compilation fails: quantifiers are out of order
+$guard->isRegexValid('/(\w)(?2)/'); // false, compilation fails: reference to non-existent subpattern at offset 7
+```
+
+### RegexGuard::match(\$pattern, \$subject, &\$matches = null, \$flags = 0, \$offset = 0);    
+
+Same as [preg_match](http://php.net/manual/en/function.preg-match.php) but throws a `\RegexGuard\RegexException` when an invalid PCRE string is given:
+
+```php
+try {
+    if(\RegexGuard\Factory::getGuard()->match($pattern, $subject)) {
+        // match
+    } else {
+        // no match
+    }
+} catch($e \RegexGuard\RegexException) {
+    // invalid regexp given
+}
+```
+
+### RegexGuard::matchAll(\$pattern, \$subject, &\$matches = null, \$flags = PREG_PATTERN_ORDER, \$offset = 0);    
+
+Same as [preg_match_all](http://php.net/manual/en/function.preg-match-all.php) but throws a `\RegexGuard\RegexException` when an invalid PCRE string is given:
+
+```php
+try {
+    $found = \RegexGuard\Factory::getGuard()->matchAll($pattern, $subject, $matches);
+    if($found) {
+        foreach($matches[0] as $match) {
+            ...
+        }
+    }
+} catch($e \RegexGuard\RegexException) {
+    // invalid regexp given
+}
+```
+
+### RegexGuard::filter(\$pattern, \$subject, \$limit = -1, \$flags = 0);
+
+Same as [preg_filter](http://php.net/manual/en/function.preg-filter.php) but throws a `\RegexGuard\RegexException` when an invalid PCRE string is given:
+
+```php
+try {
+    $result = \RegexGuard\Factory::getGuard()->filter($pattern, $subject);
+} catch($e \RegexGuard\RegexException) {
+    // invalid regexp given
+}
+```
+
+### RegexGuard::grep(\$pattern, \$input, \$flags = 0);    
+
+Same as [preg_grep](http://php.net/manual/en/function.preg-grep.php) but throws a `RegexGuard\RegexException` when an invalid PCRE string is given:
+
+```php
+try {
+    $result = \RegexGuard\Factory::getGuard()->grep($pattern, $input);
+} catch($e \RegexGuard\RegexException) {
+    // invalid regexp given
+}
+```
+
+### RegexGuard::replace(\$pattern, \$replacement , \$subject, \$limit = -1, &\$count = null);    
+
+Same as [preg_replace](http://php.net/manual/en/function.preg-replace.php) but throws a `\RegexGuard\RegexException` when an invalid PCRE string is given:
+
+```php
+try {
+    $result = \RegexGuard\Factory::getGuard()->replace($pattern, $replacement, $subject);
+} catch($e \RegexGuard\RegexException) {
+    // invalid regexp given
+}
+```
+
+### RegexGuard::split(\$pattern, \$subject, \$limit = -1, \$flags = 0);    
+
+Same as [preg_split](http://php.net/manual/en/function.preg-split.php) but throws a `\RegexGuard\RegexException` when an invalid PCRE string is given:
+
+```php
+try {
+    $list = \RegexGuard\Factory::getGuard()->split($pattern, $subject);
+} catch($e \RegexGuard\RegexException) {
+    // invalid regexp given
+}
+```
+
 ## Features
 
 - No need for `@preg_match`, `@preg_match_all`... 

@@ -8,43 +8,26 @@ RegexGuard
 [![Total Downloads][d-badge]][p-link]
 [![License][l-badge]][p-link]
 
-[t-link]: https://travis-ci.org/marcioAlmada/regex-guard "Travis Build"
-[c-link]: https://coveralls.io/r/marcioAlmada/regex-guard?branch=master "Code Coverage"
-[s-link]: https://scrutinizer-ci.com/g/marcioAlmada/regex-guard/ "Code Quality"
-[p-link]: https://packagist.org/packages/regex-guard/regex-guard "Packagist"
+PHP `preg_` functions do not offer any good way to validate a regular expression. RegexGuard is a wrapper that keeps your API away from malformed regular expressions and uncatchable PCRE compilation warnings.
 
-[t-badge]: https://travis-ci.org/marcioAlmada/regex-guard.png?branch=master
-[c-badge]: https://coveralls.io/repos/marcioAlmada/regex-guard/badge.png?branch=master
-[s-badge]: https://scrutinizer-ci.com/g/marcioAlmada/regex-guard/badges/quality-score.png
-[v-badge]: https://poser.pugx.org/regex-guard/regex-guard/v/stable.png
-[d-badge]: https://poser.pugx.org/regex-guard/regex-guard/downloads.png
-[l-badge]: https://poser.pugx.org/regex-guard/regex-guard/license.png
+## Quick Example
 
-> That's awkward but php doesn't offer any good way to validate a regular expression. There is no core function like `preg_validate_reger`, some core functions may return false on PCRE compilation errors but they also emit uncatchable warnings.
+First grab a RegexGuard instance:
 
-RegexGuard is a wrapper that keeps your API away from malformed regular expressions and uncatchable PCRE compilation warnings. Quick example:
+```php
+$guard = \RegexGuard\Factory::getGuard();
+```
+
+Validate your regex:
 
 ```php
 
-class MyFooClass
-{
-    /**
-     * Apply filter using a regular expression
-     *
-     * @param  string $regexp Must be a valid regexp (PCRE) string
-     */
-    public function filter($regexp)
-    {
-        $guard = \RegexGuard\Factory::getGuard(); // grab guard instance
-
-        if($guard->isRegexValid($regexp)) {
-            // regexp is a valid regular expression, proceed :)
-        } else {
-            // handle the invalid argument!
-        }
-    }
+if($guard->isRegexValid($regexp)) {
+    // valid
 }
-
+else {
+    // invalid
+}
 ```
 
 ## Composer Installation
@@ -59,98 +42,102 @@ class MyFooClass
 
 Through terminal: `composer require regex-guard/regex-guard:dev-master` :8ball:
 
-## API
+## RegexGuard API
 
-### RegexGuard::isRegexValid(\$pattern);
+##### isRegexValid($pattern);
 
 Validates a given perl compatible regular expression. Returns true when PCRE string is valid, false otherwise:
 
 ```php
-$guard = \RegexGuard\Factory::getGuard();
+$guard->isRegexValid('/\w{0,1}/');
+// true, regex is valid
 
-$guard->isRegexValid('/\w{0,1}/');  // true, regex is valid
-$guard->isRegexValid('/\w{1,0}/');  // false, compilation fails: quantifiers are out of order
-$guard->isRegexValid('/(\w)(?2)/'); // false, compilation fails: reference to non-existent subpattern at offset 7
+$guard->isRegexValid('/\w{1,0}/');
+// false, compilation fails: quantifiers are out of order
+
+$guard->isRegexValid('/(\w)(?2)/');
+// false, compilation fails: reference to non-existent subpattern at offset 7
 ```
 
-### RegexGuard::match(\$pattern, \$subject, &\$matches = null, \$flags = 0, \$offset = 0);    
+##### match($pattern, $subject, &$matches = null, $flags = 0, $offset = 0);    
 
 Same as [preg_match](http://php.net/manual/en/function.preg-match.php) but throws a `\RegexGuard\RegexException` when an invalid PCRE string is given:
 
 ```php
+
 try {
-    if(\RegexGuard\Factory::getGuard()->match($pattern, $subject)) {
+    if($regexGuard->match($pattern, $subject)) {
         // match
     } else {
         // no match
     }
 } catch($e \RegexGuard\RegexException) {
-    // invalid regexp given
+    // handle the invalid regexp
 }
 ```
 
-### RegexGuard::matchAll(\$pattern, \$subject, &\$matches = null, \$flags = PREG_PATTERN_ORDER, \$offset = 0);    
+##### matchAll($pattern, $subject, &$matches = null, $flags = PREG_PATTERN_ORDER, $offset = 0);    
 
 Same as [preg_match_all](http://php.net/manual/en/function.preg-match-all.php) but throws a `\RegexGuard\RegexException` when an invalid PCRE string is given:
 
 ```php
 try {
-    $found = \RegexGuard\Factory::getGuard()->matchAll($pattern, $subject, $matches);
+    $found = $regexGuard->matchAll($pattern, $subject, $matches);
     if($found) {
         foreach($matches[0] as $match) {
-            ...
+            //
         }
     }
 } catch($e \RegexGuard\RegexException) {
-    // invalid regexp given
+    // handle the invalid regexp
 }
 ```
 
-### RegexGuard::filter(\$pattern, \$subject, \$limit = -1, \$flags = 0);
+##### filter($pattern, $subject, $limit = -1, $flags = 0);
 
 Same as [preg_filter](http://php.net/manual/en/function.preg-filter.php) but throws a `\RegexGuard\RegexException` when an invalid PCRE string is given:
 
 ```php
 try {
-    $result = \RegexGuard\Factory::getGuard()->filter($pattern, $subject);
+    $result = $regexGuard->filter($pattern, $subject);
 } catch($e \RegexGuard\RegexException) {
-    // invalid regexp given
+    // handle the invalid regexp
 }
 ```
 
-### RegexGuard::grep(\$pattern, \$input, \$flags = 0);    
+##### grep($pattern, $input, $flags = 0);    
 
 Same as [preg_grep](http://php.net/manual/en/function.preg-grep.php) but throws a `RegexGuard\RegexException` when an invalid PCRE string is given:
 
 ```php
 try {
-    $result = \RegexGuard\Factory::getGuard()->grep($pattern, $input);
+    $result = $regexGuard->grep($pattern, $input);
 } catch($e \RegexGuard\RegexException) {
-    // invalid regexp given
+    // handle the invalid regexp
 }
 ```
 
-### RegexGuard::replace(\$pattern, \$replacement , \$subject, \$limit = -1, &\$count = null);    
+##### replace($pattern, $replacement , $subject, $limit = -1, &$count = null);    
 
 Same as [preg_replace](http://php.net/manual/en/function.preg-replace.php) but throws a `\RegexGuard\RegexException` when an invalid PCRE string is given:
 
 ```php
 try {
-    $result = \RegexGuard\Factory::getGuard()->replace($pattern, $replacement, $subject);
+    $result = $regexGuard->replace($pattern, $replacement, $subject);
 } catch($e \RegexGuard\RegexException) {
-    // invalid regexp given
+    // handle the invalid regexp
 }
 ```
 
-### RegexGuard::split(\$pattern, \$subject, \$limit = -1, \$flags = 0);    
+##### split($pattern, $subject, $limit = -1, $flags = 0);    
 
 Same as [preg_split](http://php.net/manual/en/function.preg-split.php) but throws a `\RegexGuard\RegexException` when an invalid PCRE string is given:
 
 ```php
 try {
-    $list = \RegexGuard\Factory::getGuard()->split($pattern, $subject);
+    $list = $regexGuard->split($pattern, $subject);
 } catch($e \RegexGuard\RegexException) {
-    // invalid regexp given
+    // handle the invalid regexp
 }
 ```
 
@@ -175,3 +162,15 @@ try {
 ## Copyright
 
 Copyright (c) 2014 Márcio Almada. Distributed under the terms of an MIT-style license. See LICENSE for details.
+
+[t-link]: https://travis-ci.org/marcioAlmada/regex-guard "Travis Build"
+[c-link]: https://coveralls.io/r/marcioAlmada/regex-guard?branch=master "Code Coverage"
+[s-link]: https://scrutinizer-ci.com/g/marcioAlmada/regex-guard/ "Code Quality"
+[p-link]: https://packagist.org/packages/regex-guard/regex-guard "Packagist"
+
+[t-badge]: https://travis-ci.org/marcioAlmada/regex-guard.png?branch=master
+[c-badge]: https://coveralls.io/repos/marcioAlmada/regex-guard/badge.png?branch=master
+[s-badge]: https://scrutinizer-ci.com/g/marcioAlmada/regex-guard/badges/quality-score.png
+[v-badge]: https://poser.pugx.org/regex-guard/regex-guard/v/stable.png
+[d-badge]: https://poser.pugx.org/regex-guard/regex-guard/downloads.png
+[l-badge]: https://poser.pugx.org/regex-guard/regex-guard/license.png

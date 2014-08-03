@@ -47,6 +47,18 @@ class MyFooClass
 
 ```
 
+## Composer Installation
+
+```json
+{
+  "require": {
+    "regex-guard/regex-guard": "dev-master"
+  }
+}
+```
+
+Through terminal: `composer require regex-guard/regex-guard:dev-master` :8ball:
+
 ## API
 
 ### RegexGuard::isRegexValid(\$pattern);

@@ -10,7 +10,7 @@ RegexGuard
 
 ## Why?
 
-PHP `preg_` functions do not offer any good way to validate a regular expression before using them. Some core functions return false for invalid regular expressions but they also emit uncatchable warnings.
+PHP `preg_` functions do not offer any good way to validate a regular expression before usage. Some core functions return false for invalid regular expressions but they also emit uncatchable warnings.
 
 RegexGuard is a wrapper that allows you to validate regular expressions and keep your API away from uncatchable PCRE compilation warnings.
 

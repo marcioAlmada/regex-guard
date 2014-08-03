@@ -223,6 +223,15 @@ class RegexGuardTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->guard->split($pattern, ''));
     }
 
+    /**
+     * @requires extension xdebug
+     */
+    public function testWithXdebugScreamEnabled()
+    {
+        ini_set('xdebug.scream', '1');
+        $this->assertFalse($this->guard->throwOnError(false)->match('#', ''));
+    }
+
     public function invalidRegexProviders()
     {
         return [

@@ -8,7 +8,23 @@ RegexGuard
 [![Total Downloads][d-badge]][p-link]
 [![License][l-badge]][p-link]
 
-PHP `preg_` functions do not offer any good way to validate a regular expression. RegexGuard is a wrapper that keeps your API away from malformed regular expressions and uncatchable PCRE compilation warnings.
+## Why?
+
+PHP `preg_` functions do not offer any good way to validate a regular expression before using them. Some core functions return false for invalid regular expressions but they also emit uncatchable warnings.
+
+RegexGuard is a wrapper that allows you to validate regular expressions and keep your API away from uncatchable PCRE compilation warnings.
+
+## Composer Installation
+
+```json
+{
+  "require": {
+    "regex-guard/regex-guard": "dev-master"
+  }
+}
+```
+
+Through terminal: `composer require regex-guard/regex-guard:dev-master` :8ball:
 
 ## Quick Example
 
@@ -30,21 +46,14 @@ else {
 }
 ```
 
-## Composer Installation
-
-```json
-{
-  "require": {
-    "regex-guard/regex-guard": "dev-master"
-  }
-}
-```
-
-Through terminal: `composer require regex-guard/regex-guard:dev-master` :8ball:
+And there is more...
 
 ## RegexGuard API
 
-##### isRegexValid($pattern);
+Internally, RegexGuard sandboxes all `preg_` functions calls and handle errors in a convenient way.
+All `preg_` core functions are fully represented:
+
+### isRegexValid($pattern)
 
 Validates a given perl compatible regular expression. Returns true when PCRE string is valid, false otherwise:
 
@@ -59,7 +68,7 @@ $guard->isRegexValid('/(\w)(?2)/');
 // false, compilation fails: reference to non-existent subpattern at offset 7
 ```
 
-##### match($pattern, $subject, &$matches = null, $flags = 0, $offset = 0);    
+### ::match($pattern, $subject, &$matches=null, $flags=0, $offset=0)
 
 Same as [preg_match](http://php.net/manual/en/function.preg-match.php) but throws a `\RegexGuard\RegexException` when an invalid PCRE string is given:
 
@@ -76,9 +85,9 @@ try {
 }
 ```
 
-##### matchAll($pattern, $subject, &$matches = null, $flags = PREG_PATTERN_ORDER, $offset = 0);    
+### ::matchAll($pattern,$subject,&$matches=null,$flags=?,$offset=0)
 
-Same as [preg_match_all](http://php.net/manual/en/function.preg-match-all.php) but throws a `\RegexGuard\RegexException` when an invalid PCRE string is given:
+Same as [preg_match_all](http://php.net/manual/en/function.preg-match-all.php) but throws a `\RegexGuard\RegexException` when an invalid PCRE string is given ($flags default value depends on PHP version):
 
 ```php
 try {
@@ -93,7 +102,7 @@ try {
 }
 ```
 
-##### filter($pattern, $subject, $limit = -1, $flags = 0);
+### ::filter($pattern, $subject, $limit = -1, $flags = 0)
 
 Same as [preg_filter](http://php.net/manual/en/function.preg-filter.php) but throws a `\RegexGuard\RegexException` when an invalid PCRE string is given:
 
@@ -105,7 +114,7 @@ try {
 }
 ```
 
-##### grep($pattern, $input, $flags = 0);    
+### ::grep($pattern, $input, $flags = 0)
 
 Same as [preg_grep](http://php.net/manual/en/function.preg-grep.php) but throws a `RegexGuard\RegexException` when an invalid PCRE string is given:
 
@@ -117,7 +126,7 @@ try {
 }
 ```
 
-##### replace($pattern, $replacement , $subject, $limit = -1, &$count = null);    
+### ::replace($pattern, $replace, $subject, $limit=-1, &$count=null)
 
 Same as [preg_replace](http://php.net/manual/en/function.preg-replace.php) but throws a `\RegexGuard\RegexException` when an invalid PCRE string is given:
 
@@ -129,7 +138,7 @@ try {
 }
 ```
 
-##### split($pattern, $subject, $limit = -1, $flags = 0);    
+### ::split($pattern, $subject, $limit = -1, $flags = 0)
 
 Same as [preg_split](http://php.net/manual/en/function.preg-split.php) but throws a `\RegexGuard\RegexException` when an invalid PCRE string is given:
 

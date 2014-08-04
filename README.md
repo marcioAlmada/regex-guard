@@ -10,7 +10,7 @@ RegexGuard
 
 ## Why?
 
-PHP `preg_` functions do not offer any good way to validate a regular expression before usage. Some core functions return false for invalid regular expressions but they also emit uncatchable warnings.
+PHP core `preg_*` functions do not offer any good way to validate a regular expression before usage. Some core functions return false for invalid regular expressions but they also emit uncatchable warnings.
 
 RegexGuard is a wrapper that allows you to validate regular expressions and keep your API away from uncatchable PCRE compilation warnings.
 
@@ -50,10 +50,10 @@ And there is more...
 
 ## RegexGuard API
 
-Internally, RegexGuard sandboxes all `preg_` functions calls and handle errors in a convenient way.
-All `preg_` core functions are fully represented:
+Internally, RegexGuard instance sandboxes all `preg_*` functions calls and handle errors in a convenient way.
+All `preg_*` core functions are fully represented:
 
-### isRegexValid($pattern)
+### ::isRegexValid($pattern)
 
 Validates a given perl compatible regular expression. Returns true when PCRE string is valid, false otherwise:
 

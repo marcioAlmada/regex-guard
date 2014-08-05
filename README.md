@@ -12,7 +12,7 @@ RegexGuard
 
 PHP core `preg_*` functions do not offer any good way to validate a regular expression before usage. Some core functions return false for invalid regular expressions but they also emit uncatchable warnings.
 
-RegexGuard is a wrapper that allows you to validate regular expressions and keep your API away from uncatchable PCRE compilation warnings.
+**RegexGuard** is a wrapper that allows you to validate regular expressions and keep your API away from uncatchable PCRE compilation warnings.
 
 ## Composer Installation
 
@@ -28,7 +28,7 @@ Through terminal: `composer require regex-guard/regex-guard:dev-master` :8ball:
 
 ## Quick Example
 
-First grab a RegexGuard instance:
+First grab a **RegexGuard** instance:
 
 ```php
 $guard = \RegexGuard\Factory::getGuard();
@@ -50,7 +50,7 @@ And there is more...
 
 ## RegexGuard API
 
-Internally, RegexGuard instance sandboxes all `preg_*` functions calls and handle errors in a convenient way.
+Internally, **RegexGuard** instance sandboxes all `preg_*` functions calls and handle errors in a convenient way.
 All `preg_*` core functions are fully represented:
 
 ### ::isRegexValid($pattern)
@@ -149,6 +149,37 @@ try {
     // handle the invalid regexp
 }
 ```
+
+## Avoiding Exceptions
+
+You can avoid try catch blocks by telling **RegexGuard** not to throw exceptions when an invalid regular expression is encountered:
+
+```php
+$guard = \RegexGuard\Factory::getGuard()->throwOnException(false);
+```
+
+This can be useful to avoid verbosity when your API needs to validate regexp arguments all over the place,
+but you will have to be **extra careful** when checking results!
+
+```php                        
+if(1 === $guard->match('#foo#y', 'bar')) {
+// ^ extra check             ^ bad regex: Unknown modifier 'y' on line 1
+}
+```
+
+> NOTE: It seems `preg_filter` has some undocumented weird behaviors so, to avoid bugs,
+`RegexGuard::filter` will not obey to `->throwOnException(false)` and will still throw exceptions.
+If you find a way to make it behave, patches are welcome :)
+
+## Manual Instantiation
+
+```
+use RegexGuard\ErrorHandler;
+use RegexGuard\Sandbox;
+use RegexGuard\RegexGuard;
+
+$guard = new RegexGuard(new Sandbox(new ErrorHandler));
+``` 
 
 ## Features
 

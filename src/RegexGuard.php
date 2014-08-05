@@ -72,8 +72,7 @@ class RegexGuard implements RegexRuntimeInterface
      */
     public function match($pattern, $subject, &$matches = null, $flags = 0, $offset = 0)
     {
-        return $this->sandbox->run(
-            'preg_match', [$pattern, $subject, &$matches, $flags, $offset], $this->throw);
+        return $this->sandbox->run('preg_match', [$pattern, $subject, &$matches, $flags, $offset], $this->throw);
     }
 
     /**

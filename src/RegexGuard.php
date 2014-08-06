@@ -52,7 +52,7 @@ class RegexGuard implements RegexRuntimeInterface
      */
     public function filter($pattern, $subject, $limit = -1, $flags = 0)
     {
-        return $this->sandbox->run('preg_filter', func_get_args());
+        return $this->sandbox->run('preg_filter', func_get_args(), $this->throw);
     }
 
     /**

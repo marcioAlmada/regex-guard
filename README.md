@@ -152,7 +152,7 @@ try {
 
 ## Avoiding Exceptions
 
-You can avoid try catch blocks by telling **RegexGuard** not to throw exceptions when an invalid regular expression is encountered:
+You can avoid `try catch` blocks by telling **RegexGuard** not to throw exceptions when an invalid regular expression is encountered:
 
 ```php
 $guard = \RegexGuard\Factory::getGuard()->throwOnException(false);
@@ -163,17 +163,13 @@ but you will have to be **extra careful** when checking results!
 
 ```php                        
 if(1 === $guard->match('#foo#y', 'bar')) {
-// ^ extra check             ^ bad regex: Unknown modifier 'y' on line 1
+// ^ strict check            ^ bad regex: Unknown modifier 'y' on line 1
 }
 ```
 
-> NOTE: It seems `preg_filter` has some undocumented weird behaviors so, to avoid bugs,
-`RegexGuard::filter` will not obey to `->throwOnException(false)` and will still throw exceptions.
-If you find a way to make it behave, patches are welcome :)
-
 ## Manual Instantiation
 
-```
+```php
 use RegexGuard\ErrorHandler;
 use RegexGuard\Sandbox;
 use RegexGuard\RegexGuard;

@@ -219,8 +219,13 @@ class RegexGuardTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->guard->grep($pattern, []));
 
         $this->assertNull($this->guard->replace($pattern, '', ''));
+        $this->assertNull($this->guard->replace([$pattern], [''], ['a', 'b']));
+
+        $this->assertNull($this->guard->filter($pattern, ['a'], ['a', 'b']));
+        $this->assertNull($this->guard->filter([$pattern], ['a'], ['a', 'b']));
 
         $this->assertFalse($this->guard->split($pattern, ''));
+
     }
 
     /**

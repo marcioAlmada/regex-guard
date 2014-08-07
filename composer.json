@@ -1,6 +1,7 @@
 {
     "name": "regex-guard/regex-guard",
-    "description": "A wrapper that keeps your code away from malformed regular expressions",
+    "description": "A wrapper that allows you to validate regular expressions and handle normally uncatchable PCRE compilation warnings",
+    "keywords": ["regex", "regexp",  "PCRE", "preg", "support", "utils"],
     "license": "MIT",
     "authors": [
         {

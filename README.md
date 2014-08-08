@@ -19,12 +19,12 @@ PHP core `preg_*` functions do not offer any good way to validate a regular expr
 ```json
 {
   "require": {
-    "regex-guard/regex-guard": "dev-master"
+    "regex-guard/regex-guard": "~1.0"
   }
 }
 ```
 
-Through terminal: `composer require regex-guard/regex-guard:dev-master` :8ball:
+Through terminal: `composer require regex-guard/regex-guard:~1.0` :8ball:
 
 ## Quick Example
 

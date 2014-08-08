@@ -87,7 +87,7 @@ try {
 
 #### ::matchAll($pattern,$subject,&$matches=null,$flags=?,$offset=0)
 
-Same as [preg_match_all](http://php.net/manual/en/function.preg-match-all.php) but throws a `\RegexGuard\RegexException` when an invalid PCRE string is given ($flags default value depends on PHP version):
+Same as [preg_match_all](http://php.net/manual/en/function.preg-match-all.php) but throws a `\RegexGuard\RegexException` when an invalid PCRE string is given:
 
 ```php
 try {
@@ -101,6 +101,8 @@ try {
     // handle the invalid regexp
 }
 ```
+
+> NOTE: `$flags` default value depends on your PHP version.
 
 #### ::filter($pattern, $subject, $limit = -1, $flags = 0)
 

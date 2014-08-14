@@ -7,6 +7,8 @@ RegexGuard
 [![Latest Stable Version][v-badge]][p-link]
 [![Total Downloads][d-badge]][p-link]
 [![License][l-badge]][p-link]
+[![Dependency Status](https://www.versioneye.com/php/regex-guard:regex-guard/1.0.0/badge.svg)](https://www.versioneye.com/php/regex-guard:regex-guard/1.0.0)
+[![Reference Status](https://www.versioneye.com/php/regex-guard:regex-guard/reference_badge.svg)](https://www.versioneye.com/php/regex-guard:regex-guard/references)
 
 ## Why?
 

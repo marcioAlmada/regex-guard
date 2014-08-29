@@ -29,8 +29,8 @@ class ErrorHandlerTest extends \PHPUnit_Framework_TestCase
 
         try {
             trigger_error('signal a', E_USER_WARNING);
-        } catch (RegexException $e){
-            $this->assertEquals('signal a', $e->getMessage());
+        } catch (RegexException $e) {
+            $this->assertContains('signal a', $e->getMessage());
             trigger_error('signal b', E_USER_WARNING);
         }
     }

@@ -72,9 +72,9 @@ $guard->isRegexValid('/(\w)(?2)/');
 
 #### ::validateRegexOrFail($pattern)
 
-Validates a given regexp or throw `\RegexGuard\RegexException` if PCRE is invalid.
+Validates a given regexp or throw `\RegexGuard\RegexException` if PCRE is invalid:
 
-```
+```php
 $guard->validateRegexOrFail('/(\w)(?2)/');
 // throws: compilation fails: reference to non-existent subpattern at offset 7
 ```

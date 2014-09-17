@@ -13,7 +13,7 @@ class ErrorHandler implements ErrorHandlerInterface
         if (! $this->enabled) {
             $this->enabled = true;
 
-            return set_error_handler(function ($errno, $errstr) use ($severity, $throwOnError) {
+            return set_error_handler(function ($errno, $errstr) use ($throwOnError) {
                 if ($throwOnError) {
                     $this->disable();
                     throw new RegexException('Invalid regex given: ' . str_replace('preg_', '', $errstr), 1);

@@ -33,6 +33,27 @@ class RegexGuardTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @expectedException \RegexGuard\RegexException
+     * @dataProvider invalidRegexProviders
+     */
+    public function testValidateRegexOrFail($pattern, $message)
+    {
+        $this->expectRegexException($message);
+        $this->guard->validateRegexOrFail($pattern);
+    }
+
+    /**
+     * @expectedException \RegexGuard\RegexException
+     * @dataProvider invalidRegexProviders
+     */
+    public function testValidateRegexOrFailWithThrowDisabled($pattern, $message)
+    {
+        $this->expectRegexException($message);
+        $this->guard->throwOnError(false);
+        $this->guard->validateRegexOrFail($pattern);
+    }
+
     public function testMatch()
     {
         $pattern = '#[a-z]#';

@@ -46,6 +46,17 @@ class RegexGuard implements RegexRuntimeInterface
     }
 
     /**
+     * Validates a given perl compatible regular expression or throw exception
+     *
+     * @param  string                    $pattern pcre string
+     * @throws \InvalidArgumentException If invalid regexp is given
+     */
+    public function validateRegexOrFail($pattern)
+    {
+        $this->sandbox->run('preg_match', [$pattern, '']);
+    }
+
+    /**
      * Same as \preg_filter but throws exception when an invalid pcre string is given
      *
      * @link http://php.net/manual/en/function.preg-filter.php

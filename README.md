@@ -57,7 +57,7 @@ All `preg_*` core functions are fully represented:
 
 #### ::isRegexValid($pattern)
 
-Validates a given perl compatible regular expression. Returns true when PCRE string is valid, false otherwise:
+Validates a given regexp. Returns true when PCRE string is valid, false otherwise:
 
 ```php
 $guard->isRegexValid('/\w{0,1}/');
@@ -68,6 +68,15 @@ $guard->isRegexValid('/\w{1,0}/');
 
 $guard->isRegexValid('/(\w)(?2)/');
 // false, compilation fails: reference to non-existent subpattern at offset 7
+```
+
+#### ::validateRegexOrFail($pattern)
+
+Validates a given regexp or throw `\RegexGuard\RegexException` if PCRE is invalid.
+
+```
+$guard->validateRegexOrFail('/(\w)(?2)/');
+// throws: compilation fails: reference to non-existent subpattern at offset 7
 ```
 
 #### ::match($pattern, $subject, &$matches=null, $flags=0, $offset=0)

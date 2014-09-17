@@ -7,6 +7,7 @@ RegexGuard
 [![Latest Stable Version][v-badge]][p-link]
 [![Total Downloads][d-badge]][p-link]
 [![License][l-badge]][p-link]
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/454ab2f2-2b33-49da-b1e8-75dacb2a300c/mini.png)](https://insight.sensiolabs.com/projects/454ab2f2-2b33-49da-b1e8-75dacb2a300c)
 [![Dependency Status](https://www.versioneye.com/php/regex-guard:regex-guard/1.0.0/badge.svg)](https://www.versioneye.com/php/regex-guard:regex-guard/1.0.0)
 [![Reference Status](https://www.versioneye.com/php/regex-guard:regex-guard/reference_badge.svg)](https://www.versioneye.com/php/regex-guard:regex-guard/references)
 

@@ -36,6 +36,7 @@ interface RegexRuntimeInterface
      * @link http://php.net/manual/en/function.preg-filter.php
      */
     public function filter($pattern, $subject, $limit = -1, $flags = 0);
+
     /**
      * Same as \preg_grep but throws exception when an invalid pcre string is given
      *
@@ -49,6 +50,7 @@ interface RegexRuntimeInterface
      * @link http://php.net/manual/en/function.preg-match.php
      */
     public function match($pattern, $subject, &$matches = null, $flags = 0, $offset = 0);
+
     /**
      * Same as \preg_match but throws exception when an invalid pcre string is given
      *

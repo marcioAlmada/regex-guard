@@ -40,7 +40,6 @@ $guard = \RegexGuard\Factory::getGuard();
 Validate your regex:
 
 ```php
-
 if($guard->isRegexValid($regexp)) {
     // valid
 }
@@ -85,14 +84,13 @@ $guard->validateRegexOrFail('/(\w)(?2)/');
 Same as [preg_match](http://php.net/manual/en/function.preg-match.php) but throws a `\RegexGuard\RegexException` when an invalid PCRE string is given:
 
 ```php
-
 try {
     if($regexGuard->match($pattern, $subject)) {
         // match
     } else {
         // no match
     }
-} catch($e \RegexGuard\RegexException) {
+} catch(\RegexGuard\RegexException $e) {
     // handle the invalid regexp
 }
 ```
@@ -109,7 +107,7 @@ try {
             //
         }
     }
-} catch($e \RegexGuard\RegexException) {
+} catch(\RegexGuard\RegexException $e) {
     // handle the invalid regexp
 }
 ```
@@ -123,7 +121,7 @@ Same as [preg_filter](http://php.net/manual/en/function.preg-filter.php) but thr
 ```php
 try {
     $result = $regexGuard->filter($pattern, $subject);
-} catch($e \RegexGuard\RegexException) {
+} catch(\RegexGuard\RegexException $e) {
     // handle the invalid regexp
 }
 ```
@@ -135,7 +133,7 @@ Same as [preg_grep](http://php.net/manual/en/function.preg-grep.php) but throws 
 ```php
 try {
     $result = $regexGuard->grep($pattern, $input);
-} catch($e \RegexGuard\RegexException) {
+} catch(\RegexGuard\RegexException $e) {
     // handle the invalid regexp
 }
 ```
@@ -147,7 +145,7 @@ Same as [preg_replace](http://php.net/manual/en/function.preg-replace.php) but t
 ```php
 try {
     $result = $regexGuard->replace($pattern, $replacement, $subject);
-} catch($e \RegexGuard\RegexException) {
+} catch(\RegexGuard\RegexException $e) {
     // handle the invalid regexp
 }
 ```
@@ -159,7 +157,7 @@ Same as [preg_split](http://php.net/manual/en/function.preg-split.php) but throw
 ```php
 try {
     $list = $regexGuard->split($pattern, $subject);
-} catch($e \RegexGuard\RegexException) {
+} catch(\RegexGuard\RegexException $e) {
     // handle the invalid regexp
 }
 ```
